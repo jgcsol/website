@@ -33,8 +33,8 @@ jobs:
       # Build and export static site
       - name: Build and export static site
         run: |
-          npm run build:export
-          
+          npm run build
+
       # Configure AWS credentials using OIDC
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
