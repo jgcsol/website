@@ -1,4 +1,4 @@
-name: Deploy Next.js Static Site to AWS
+name: Deploy Next.js Static Site to AWS S3 Bucket
 
 on:
   push:
