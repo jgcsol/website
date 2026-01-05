@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      
+
 permissions:
   id-token: write
   contents: read
@@ -38,7 +38,7 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::200962050435:role/GithubDeployWebsiteRole
+          role-to-assume: arn:aws:iam::200962050435:role/GithubWebsiteDeployRole
           aws-region: us-east-1
 
       # Deploy exported site to S3
