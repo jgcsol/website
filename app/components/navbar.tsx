@@ -15,7 +15,6 @@ export default function Navbar(): JSX.Element {
         <div className="flex items-center gap-6 text-sm font-medium">
           <Link href="/pricing">Pricing</Link>
           <Link href="/portfolio">Portfolio</Link>
-
           <Link
             href="/contact"
             className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
