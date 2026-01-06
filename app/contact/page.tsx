@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { JSX } from "react";
 
-export default function ContactPage(): JSX.Element {
+export default function ContactPage() {
   return (
     <main className="bg-white text-gray-900">
       
