@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 const API_ENDPOINT =
-  "https://xjkvcuwg7f.execute-api.us-east-1.amazonaws.com"; 
+  "https://xjkvcuwg7f.execute-api.us-east-1.amazonaws.com/"; 
 
 
 export default function ContactForm() {
