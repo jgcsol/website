@@ -4,12 +4,18 @@ import { useState } from "react";
 
 export default function ContactForm() {
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(""); // Inline feedback
+  const [isError, setIsError] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
+    setMessage("");
+    setIsError(false);
 
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget as HTMLFormElement;
+
+    const formData = new FormData(form);
     const data = {
       name: formData.get("name")?.toString() || "",
       email: formData.get("email")?.toString() || "",
@@ -27,17 +33,21 @@ export default function ContactForm() {
       const result = await res.json();
 
       if (result.success) {
-        alert("Message sent successfully!");
-        e.currentTarget.reset();
+        setMessage("✅ Message sent successfully!");
+        setIsError(false);
+        form.reset(); // ✅ safe now
       } else {
-        alert("Failed to send message: " + (result.error || "Unknown error"));
+        setMessage("❌ Failed to send message: " + (result.error || "Unknown error"));
+        setIsError(true);
       }
     } catch (err) {
-      alert("Error sending message: " + err);
+      setMessage("❌ Error sending message: " + err);
+      setIsError(true);
     } finally {
       setLoading(false);
     }
   }
+
 
   return (
     <section className="max-w-2xl mx-auto px-6 py-20">
@@ -95,6 +105,16 @@ export default function ContactForm() {
         >
           {loading ? "Sending..." : "Send Message"}
         </button>
+
+        {/* Inline Feedback */}
+        {message && (
+          <p
+            className={`mt-4 text-center font-medium ${isError ? "text-red-600" : "text-green-600"
+              }`}
+          >
+            {message}
+          </p>
+        )}
       </form>
     </section>
   );
