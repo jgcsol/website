@@ -2,21 +2,25 @@
 
 import { useState } from "react";
 
+const API_ENDPOINT =
+  "https://xjkvcuwg7f.execute-api.us-east-1.amazonaws.com"; 
+
+
 export default function ContactForm() {
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState(""); // Inline feedback
+  const [feedback, setFeedback] = useState<string | null>(null);
   const [isError, setIsError] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
-    setMessage("");
+    setFeedback(null);
     setIsError(false);
 
     const form = e.currentTarget as HTMLFormElement;
-
     const formData = new FormData(form);
-    const data = {
+
+    const payload = {
       name: formData.get("name")?.toString() || "",
       email: formData.get("email")?.toString() || "",
       company: formData.get("company")?.toString() || "",
@@ -24,48 +28,53 @@ export default function ContactForm() {
     };
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch(API_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
       });
+
+      // 👇 SAFETY CHECK — avoids JSON parse crash
+      if (!res.ok) {
+        throw new Error(`Request failed (${res.status})`);
+      }
 
       const result = await res.json();
 
       if (result.success) {
-        setMessage("✅ Message sent successfully!");
+        setFeedback("✅ Message sent successfully. We'll be in touch shortly.");
         setIsError(false);
-        form.reset(); // ✅ safe now
+        form.reset();
       } else {
-        setMessage("❌ Failed to send message: " + (result.error || "Unknown error"));
+        setFeedback(result.error || "❌ Failed to send message.");
         setIsError(true);
       }
     } catch (err) {
-      setMessage("❌ Error sending message: " + err);
+      console.error(err);
+      setFeedback("❌ Unable to send message. Please try again later.");
       setIsError(true);
     } finally {
       setLoading(false);
     }
   }
 
-
   return (
     <section className="max-w-2xl mx-auto px-6 py-20">
       <h1 className="text-3xl md:text-4xl font-bold text-center mb-6">
-        Contact Us
+        Contact JGC Solutions
       </h1>
+
       <p className="text-center text-gray-600 mb-12">
-        Fill out the form below and we’ll get back to you shortly.
+        Tell us about your project and we’ll respond within 1 business day.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label className="block font-medium mb-1">Name *</label>
           <input
-            type="text"
             name="name"
             required
-            className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600"
+            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600"
           />
         </div>
 
@@ -75,16 +84,15 @@ export default function ContactForm() {
             type="email"
             name="email"
             required
-            className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600"
+            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600"
           />
         </div>
 
         <div>
           <label className="block font-medium mb-1">Company</label>
           <input
-            type="text"
             name="company"
-            className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600"
+            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600"
           />
         </div>
 
@@ -94,25 +102,25 @@ export default function ContactForm() {
             name="message"
             rows={5}
             required
-            className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600"
+            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600"
           />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition"
+          className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
         >
           {loading ? "Sending..." : "Send Message"}
         </button>
 
-        {/* Inline Feedback */}
-        {message && (
+        {feedback && (
           <p
-            className={`mt-4 text-center font-medium ${isError ? "text-red-600" : "text-green-600"
-              }`}
+            className={`text-center font-medium ${
+              isError ? "text-red-600" : "text-green-600"
+            }`}
           >
-            {message}
+            {feedback}
           </p>
         )}
       </form>
