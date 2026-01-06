@@ -1,91 +1,70 @@
-import Link from "next/link";
+"use client";
+import { useState } from "react";
 
-export default function ContactPage() {
-  return (
-    <main className="bg-white text-gray-900">
-      
-      {/* HEADER */}
-      <section className="max-w-4xl mx-auto px-6 py-20 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold">
-          Get in Touch
-        </h1>
-        <p className="mt-6 text-lg text-gray-600">
-          Tell us about your project, automation needs, or cloud goals.
-          We’ll respond within 1 business day.
-        </p>
-      </section>
+export default function ContactForm() {
+    const [loading, setLoading] = useState(false);
 
-      {/* CONTACT FORM */}
-      <section className="max-w-3xl mx-auto px-6 pb-20">
-        <form
-          action="mailto:contact@jgcsolutions.com"
-          method="POST"
-          encType="text/plain"
-          className="space-y-6"
-        >
-          <div>
-            <label className="block font-medium mb-1">Name</label>
-            <input
-              type="text"
-              name="name"
-              required
-              className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600"
-            />
-          </div>
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        setLoading(true);
 
-          <div>
-            <label className="block font-medium mb-1">Email</label>
-            <input
-              type="email"
-              name="email"
-              required
-              className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600"
-            />
-          </div>
+        const formData = new FormData(e.currentTarget);
+        const data = {
+            name: formData.get("name")?.toString() || "",
+            email: formData.get("email")?.toString() || "",
+            company: formData.get("company")?.toString() || "",
+            message: formData.get("message")?.toString() || "",
+        };
 
-          <div>
-            <label className="block font-medium mb-1">Company (optional)</label>
-            <input
-              type="text"
-              name="company"
-              className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600"
-            />
-          </div>
+        try {
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            });
+            const result = await res.json();
 
-          <div>
-            <label className="block font-medium mb-1">
-              How can we help?
-            </label>
-            <textarea
-              name="message"
-              rows={5}
-              required
-              className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600"
-            />
-          </div>
+            if (result.success) {
+                alert("Message sent successfully!");
+                data.name = ""
+                data.email = ""
+                data.company = ""
+                data.message = ""
+            } else {
+                alert("Failed to send message: " + (result.error || "Unknown error"));
+            }
+        } catch (err) {
+            alert("Error sending message: " + err);
+        } finally {
+            setLoading(false);
+        }
+    }
 
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition"
-          >
-            Send Message
-          </button>
+    return (
+        <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+                <label className="block font-medium mb-1">Name</label>
+                <input type="text" name="name" required className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600" />
+            </div>
+
+            <div>
+                <label className="block font-medium mb-1">Email</label>
+                <input type="email" name="email" required className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600" />
+            </div>
+
+            <div>
+                <label className="block font-medium mb-1">Company (optional)</label>
+                <input type="text" name="company" className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600" />
+            </div>
+
+            <div>
+                <label className="block font-medium mb-1">Message</label>
+                <textarea name="message" rows={5} required className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600" />
+            </div>
+
+            <button type="submit" disabled={loading} className="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition">
+                {loading ? "Sending..." : "Send Message"}
+            </button>
         </form>
-
-        {/* ALTERNATIVE CONTACT */}
-        <div className="mt-10 text-center text-gray-600">
-          <p>
-            Prefer email? Reach us directly at{" "}
-            <a
-              href="mailto:contact@jgcsolutions.com"
-              className="text-blue-600 font-medium"
-            >
-              contact@jgcsolutions.com
-            </a>
-          </p>
-        </div>
-      </section>
-
-    </main>
-  );
+    );
 }
