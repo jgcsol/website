@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { JSX } from "react";
 
-export default function Navbar(): JSX.Element {
+export default function Navbar() {
   return (
     <nav className="border-b bg-white">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
