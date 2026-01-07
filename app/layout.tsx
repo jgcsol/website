@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/global.css";
 import Navbar from "./components/navbar";
+import Head from "next/head";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,22 +14,60 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Global metadata
 export const metadata: Metadata = {
   title: "JGC Solutions",
-  description: "Marketing site for JGC Solutions LLC.",
+  description:
+    "JGC Solutions provides AWS-powered software development, automation, and serverless architecture for small and mid-sized businesses.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-         <Navbar />
+      <Head>
+        {/* JSON-LD Structured Data for LocalBusiness */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              name: "JGC Solutions",
+              url: "https://jgcsol.com",
+              logo: "https://jgcsol.com/logo.png",
+              description:
+                "AWS cloud consulting and serverless software development for small and mid-sized businesses.",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Rochester",
+                addressRegion: "NY",
+                addressCountry: "US",
+              },
+              areaServed: {
+                "@type": "Country",
+                name: "United States",
+              },
+              founder: {
+                "@type": "Person",
+                name: "Jesus Cabrero",
+              },
+              sameAs: [
+                "https://www.linkedin.com/in/YOUR-LINKEDIN",
+                "https://github.com/YOUR-GITHUB",
+              ],
+              serviceOffered: [
+                { "@type": "Service", name: "AWS Cloud Development" },
+                { "@type": "Service", name: "Serverless Automation" },
+                { "@type": "Service", name: "Cloud Migration to AWS" },
+              ],
+            }),
+          }}
+        />
+      </Head>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <Navbar />
         {children}
       </body>
     </html>
