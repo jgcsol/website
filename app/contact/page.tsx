@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState } from "react";
 import {reCaptcha} from './util/recaptcha'
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 const API_ENDPOINT =
   "https://o3zeql0j4a.execute-api.us-east-1.amazonaws.com/contact";
@@ -33,22 +32,6 @@ export default function ContactForm() {
   const formData = new FormData(form);
 
   try {
-    // 1️⃣ Wait until grecaptcha is ready
-    await new Promise<void>((resolve) => {
-      window.grecaptcha.ready(resolve);
-    });
-
-    // 2️⃣ Execute reCAPTCHA v3
-    const token = await window.grecaptcha.execute(
-      process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!,
-      { action: "contact" }
-    );
-
-    if (!token) {
-      throw new Error("reCAPTCHA token missing");
-    }
-
-    // 3️⃣ Build payload AFTER token exists
     const payload = {
       name: formData.get("name")?.toString() || "",
       email: formData.get("email")?.toString() || "",

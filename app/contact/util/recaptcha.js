@@ -39,14 +39,14 @@ export function loadReCaptcha(siteKey) {
  * @param {string} action - Action name for v3
  * @returns {Promise<string>} resolves with the token
  */
-export async function getReCaptchaToken(siteKey = process.env.REACT_APP_GOOGLE_RECAPTCHA_KEY, action = "login") {
+export async function getReCaptchaToken(siteKey = process.env.REACT_APP_GOOGLE_RECAPTCHA_KEY, action = "contact") {
   if (!siteKey) throw new Error("Missing reCAPTCHA site key");
 
   const grecaptcha = await loadReCaptcha(siteKey);
 
   return new Promise((resolve, reject) => {
-    grecaptcha.ready(() => {
-      grecaptcha.execute(siteKey, { action })
+    grecaptcha.enterprise.ready(() => {
+      grecaptcha.enterprise.execute(siteKey, { action })
         .then(resolve)
         .catch(reject);
     });
