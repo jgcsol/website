@@ -9,6 +9,9 @@ permissions:
   id-token: write
   contents: read
 
+env:
+  RECAPTCHA_SECRET: process.env.RECAPTCHA_SECRET
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
