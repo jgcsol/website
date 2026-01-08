@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import {reCaptcha} from './util/recaptcha'
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 const API_ENDPOINT =
   "https://o3zeql0j4a.execute-api.us-east-1.amazonaws.com/contact";
@@ -11,61 +13,84 @@ export default function ContactForm() {
   const [isError, setIsError] = useState(false);
   const [token, setToken] = useState("")
 
+    const refreshCaptcha = useCallback(() => {
+      reCaptcha('contact', (token) => setToken(token));
+    }, []);
+  
+    useEffect(() => {
+      if (!token || token === "") refreshCaptcha();
+    }, [token, refreshCaptcha]);
+
   
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setLoading(true);
-    setFeedback(null);
-    setIsError(false);
+  e.preventDefault();
+  setLoading(true);
+  setFeedback(null);
+  setIsError(false);
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
+  const form = e.currentTarget;
+  const formData = new FormData(form);
 
-    try {
-       window.grecaptcha.ready(async () => {
-      const token = await window.grecaptcha.execute(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "", {action: 'contact'});
-      setToken(token)
+  try {
+    // 1️⃣ Wait until grecaptcha is ready
+    await new Promise<void>((resolve) => {
+      window.grecaptcha.ready(resolve);
     });
-      const payload = {
-        name: formData.get("name")?.toString() || "",
-        email: formData.get("email")?.toString() || "",
-        company: formData.get("company")?.toString() || "",
-        message: formData.get("message")?.toString() || "",
-        captchaToken:token,
-      };
-    
 
-      const res = await fetch(API_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+    // 2️⃣ Execute reCAPTCHA v3
+    const token = await window.grecaptcha.execute(
+      process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!,
+      { action: "contact" }
+    );
 
-      if (!res.ok) {
-        throw new Error(`Request failed (${res.status})`);
-      }
-
-      const result = await res.json();
-
-      if (result.success) {
-        setFeedback("✅ Message sent successfully. We'll be in touch shortly.");
-        setIsError(false);
-        form.reset();
-      } else {
-        setFeedback(result.error || "❌ Failed to send message.");
-        setIsError(true);
-      }
-    } catch (err) {
-      console.error(err);
-      setFeedback("❌ Unable to send message. Please try again later.");
-      setIsError(true);
-    } finally {
-      setLoading(false);
+    if (!token) {
+      throw new Error("reCAPTCHA token missing");
     }
+
+    // 3️⃣ Build payload AFTER token exists
+    const payload = {
+      name: formData.get("name")?.toString() || "",
+      email: formData.get("email")?.toString() || "",
+      company: formData.get("company")?.toString() || "",
+      message: formData.get("message")?.toString() || "",
+      captchaToken: token,
+    };
+
+    const res = await fetch(API_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      throw new Error(`Request failed (${res.status})`);
+    }
+
+    const result = await res.json();
+
+    if (result.success) {
+      setFeedback("✅ Message sent successfully.");
+      setIsError(false);
+      form.reset();
+    } else {
+      throw new Error(result.error || "Submission failed");
+    }
+  } catch (err) {
+    console.error(err);
+    setFeedback("❌ Unable to send message.");
+    setIsError(true);
+  } finally {
+    setLoading(false);
   }
+}
+
 
   return (
+    <GoogleReCaptchaProvider
+                reCaptchaKey={process.env.REACT_APP_GOOGLE_RECAPTCHA_KEY || ""}
+                scriptProps={{ async: true, defer: true, appendTo: "head" }}
+              >
     <section className="max-w-2xl mx-auto px-6 py-20">
       <h1 className="text-3xl md:text-4xl font-bold text-center mb-6">
         Contact JGC Solutions
@@ -132,5 +157,8 @@ export default function ContactForm() {
         )}
       </form>
     </section>
+    </GoogleReCaptchaProvider>
   );
 }
+
+
