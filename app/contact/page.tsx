@@ -87,10 +87,6 @@ export default function ContactForm() {
 
 
   return (
-    <GoogleReCaptchaProvider
-                reCaptchaKey={process.env.REACT_APP_GOOGLE_RECAPTCHA_KEY || ""}
-                scriptProps={{ async: true, defer: true, appendTo: "head" }}
-              >
     <section className="max-w-2xl mx-auto px-6 py-20">
       <h1 className="text-3xl md:text-4xl font-bold text-center mb-6">
         Contact JGC Solutions
@@ -157,7 +153,6 @@ export default function ContactForm() {
         )}
       </form>
     </section>
-    </GoogleReCaptchaProvider>
   );
 }
 
