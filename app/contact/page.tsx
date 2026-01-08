@@ -20,14 +20,17 @@ export default function ContactForm() {
     const form = e.currentTarget as HTMLFormElement;
     const formData = new FormData(form);
 
+    const token = await grecaptcha.execute(process.env.RECAPTCHA_SECRET || "", {action: 'CONTACT'});
     const payload = {
       name: formData.get("name")?.toString() || "",
       email: formData.get("email")?.toString() || "",
       company: formData.get("company")?.toString() || "",
       message: formData.get("message")?.toString() || "",
+      captchaToken: token,
     };
 
     try {
+      
       const res = await fetch(API_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

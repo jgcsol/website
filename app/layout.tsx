@@ -55,7 +55,7 @@ export default function RootLayout({
               },
               sameAs: [
                 "https://www.linkedin.com/in/YOUR-LINKEDIN",
-                "https://github.com/YOUR-GITHUB",
+                "https://github.com/jgcsol",
               ],
               serviceOffered: [
                 { "@type": "Service", name: "AWS Cloud Development" },
@@ -65,6 +65,7 @@ export default function RootLayout({
             }),
           }}
         />
+        src={`https://www.google.com/recaptcha/api.js?render=${process.env.RECAPTCHA_SECRET}`}
       </Head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Navbar />
