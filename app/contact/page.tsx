@@ -24,7 +24,7 @@ export default function ContactForm() {
 
     try {
        window.grecaptcha.ready(async () => {
-      const token = await window.grecaptcha.execute(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "", {action: 'LOGIN'});
+      const token = await window.grecaptcha.execute(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "", {action: 'contact'});
       setToken(token)
     });
       const payload = {
