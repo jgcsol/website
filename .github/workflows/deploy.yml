@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 env:
-  RECAPTCHA_SECRET: process.env.RECAPTCHA_SECRET
+  RECAPTCHA_SECRET: secrets.RECAPTCHA_SECRET
 
 jobs:
   deploy:

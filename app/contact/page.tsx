@@ -3,13 +3,40 @@
 import { useState } from "react";
 
 const API_ENDPOINT =
-  "https://o3zeql0j4a.execute-api.us-east-1.amazonaws.com/contact"; 
-
+  "https://o3zeql0j4a.execute-api.us-east-1.amazonaws.com/contact";
 
 export default function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [isError, setIsError] = useState(false);
+
+  async function getRecaptchaToken() {
+    if (typeof window === "undefined") {
+      throw new Error("reCAPTCHA called on server");
+    }
+
+    await new Promise<void>((resolve, reject) => {
+      let attempts = 0;
+
+      const check = () => {
+        if (window.grecaptcha?.execute) {
+          window.grecaptcha.ready(resolve);
+          return;
+        }
+        if (++attempts > 60) {
+          reject(new Error("reCAPTCHA failed to load"));
+        }
+        setTimeout(check, 100);
+      };
+
+      check();
+    });
+
+    return window.grecaptcha.execute(
+      process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!,
+      { action: "contact" }
+    );
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -17,27 +44,26 @@ export default function ContactForm() {
     setFeedback(null);
     setIsError(false);
 
-    const form = e.currentTarget as HTMLFormElement;
+    const form = e.currentTarget;
     const formData = new FormData(form);
 
-    const token = await grecaptcha.execute(process.env.RECAPTCHA_SECRET || "", {action: 'CONTACT'});
-    const payload = {
-      name: formData.get("name")?.toString() || "",
-      email: formData.get("email")?.toString() || "",
-      company: formData.get("company")?.toString() || "",
-      message: formData.get("message")?.toString() || "",
-      captchaToken: token,
-    };
-
     try {
-      
+      const captchaToken = await getRecaptchaToken();
+
+      const payload = {
+        name: formData.get("name")?.toString() || "",
+        email: formData.get("email")?.toString() || "",
+        company: formData.get("company")?.toString() || "",
+        message: formData.get("message")?.toString() || "",
+        captchaToken,
+      };
+
       const res = await fetch(API_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      // 👇 SAFETY CHECK — avoids JSON parse crash
       if (!res.ok) {
         throw new Error(`Request failed (${res.status})`);
       }
@@ -77,7 +103,7 @@ export default function ContactForm() {
           <input
             name="name"
             required
-            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600"
+            className="w-full border rounded-lg px-4 py-3"
           />
         </div>
 
@@ -87,7 +113,7 @@ export default function ContactForm() {
             type="email"
             name="email"
             required
-            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600"
+            className="w-full border rounded-lg px-4 py-3"
           />
         </div>
 
@@ -95,7 +121,7 @@ export default function ContactForm() {
           <label className="block font-medium mb-1">Company</label>
           <input
             name="company"
-            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600"
+            className="w-full border rounded-lg px-4 py-3"
           />
         </div>
 
@@ -105,14 +131,14 @@ export default function ContactForm() {
             name="message"
             rows={5}
             required
-            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600"
+            className="w-full border rounded-lg px-4 py-3"
           />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+          className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold"
         >
           {loading ? "Sending..." : "Send Message"}
         </button>
