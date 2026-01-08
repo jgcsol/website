@@ -1,9 +1,13 @@
-interface Grecaptcha {
-  ready(cb: () => void): void;
-  execute(
-    siteKey: string,
-    options: { action: string }
-  ): Promise<string>;
-}
+export {};
 
-declare const grecaptcha: Grecaptcha;
+declare global {
+  interface Window {
+    grecaptcha: {
+      ready: (cb: () => void) => void;
+      execute: (
+        siteKey: string,
+        options: { action: string }
+      ) => Promise<string>;
+    };
+  }
+}

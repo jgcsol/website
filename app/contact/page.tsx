@@ -9,34 +9,9 @@ export default function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [isError, setIsError] = useState(false);
+  const [token, setToken] = useState("")
 
-  async function getRecaptchaToken() {
-    if (typeof window === "undefined") {
-      throw new Error("reCAPTCHA called on server");
-    }
-
-    await new Promise<void>((resolve, reject) => {
-      let attempts = 0;
-
-      const check = () => {
-        if (window.grecaptcha?.execute) {
-          window.grecaptcha.ready(resolve);
-          return;
-        }
-        if (++attempts > 60) {
-          reject(new Error("reCAPTCHA failed to load"));
-        }
-        setTimeout(check, 100);
-      };
-
-      check();
-    });
-
-    return window.grecaptcha.execute(
-      process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!,
-      { action: "contact" }
-    );
-  }
+  
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -48,15 +23,18 @@ export default function ContactForm() {
     const formData = new FormData(form);
 
     try {
-      const captchaToken = await getRecaptchaToken();
-
+       window.grecaptcha.ready(async () => {
+      const token = await window.grecaptcha.execute(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "", {action: 'LOGIN'});
+      setToken(token)
+    });
       const payload = {
         name: formData.get("name")?.toString() || "",
         email: formData.get("email")?.toString() || "",
         company: formData.get("company")?.toString() || "",
         message: formData.get("message")?.toString() || "",
-        captchaToken,
+        captchaToken:token,
       };
+    
 
       const res = await fetch(API_ENDPOINT, {
         method: "POST",
