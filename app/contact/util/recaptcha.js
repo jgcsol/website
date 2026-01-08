@@ -39,7 +39,7 @@ export function loadReCaptcha(siteKey) {
  * @param {string} action - Action name for v3
  * @returns {Promise<string>} resolves with the token
  */
-export async function getReCaptchaToken(siteKey = process.env.REACT_APP_GOOGLE_RECAPTCHA_KEY, action = "login") {
+export async function getReCaptchaToken(siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY, action = "contact") {
   if (!siteKey) throw new Error("Missing reCAPTCHA site key");
 
   const grecaptcha = await loadReCaptcha(siteKey);
