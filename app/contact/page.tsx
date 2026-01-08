@@ -13,34 +13,6 @@ export default function ContactForm() {
 
   
 
-  async function getRecaptchaToken() {
-    if (typeof window === "undefined") {
-      throw new Error("reCAPTCHA called on server");
-    }
-
-    await new Promise<void>((resolve, reject) => {
-      let attempts = 0;
-
-      const check = () => {
-        if (window.grecaptcha?.execute) {
-          window.grecaptcha.ready(resolve);
-          return;
-        }
-        if (++attempts > 60) {
-          reject(new Error("reCAPTCHA failed to load"));
-        }
-        setTimeout(check, 100);
-      };
-
-      check();
-    });
-
-    return window.grecaptcha.execute(
-      process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!,
-      { action: "contact" }
-    );
-  }
-
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
