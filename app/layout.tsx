@@ -24,14 +24,47 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "JGC Solutions",
+    url: "https://jgcsol.com",
+    logo: "https://jgcsol.com/logo.png",
+    description:
+      "AWS cloud consulting and serverless software development for small and mid-sized businesses.",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Rochester",
+      addressRegion: "NY",
+      addressCountry: "US",
+    },
+    areaServed: {
+      "@type": "Country",
+      name: "United States",
+    },
+    founder: {
+      "@type": "Person",
+      name: "Jesus Cabrero",
+    },
+    sameAs: [
+      "https://www.linkedin.com/in/YOUR-LINKEDIN",
+      "https://github.com/jgcsol",
+    ],
+    serviceOffered: [
+      { "@type": "Service", name: "AWS Cloud Development" },
+      { "@type": "Service", name: "Serverless Automation" },
+      { "@type": "Service", name: "Cloud Migration to AWS" },
+    ],
+  };
+
   return (
     <html lang="en">
-       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ 
-        "@context": "https://schema.org", "@type": "LocalBusiness", name: "JGC Solutions", url: "https://jgcsol.com", logo: "https://jgcsol.com/logo.png", 
-        description: "AWS cloud consulting and serverless software development for small and mid-sized businesses.", address: { "@type": "PostalAddress", 
-        addressLocality: "Rochester", addressRegion: "NY", addressCountry: "US", }, areaServed: { "@type": "Country", name: "United States", }, 
-        founder: { "@type": "Person", name: "Jesus Cabrero", }, sameAs: ["https://www.linkedin.com/in/YOUR-LINKEDIN", "https://github.com/jgcsol",], 
-        serviceOffered: [{ "@type": "Service", name: "AWS Cloud Development" }, { "@type": "Service", name: "Serverless Automation" }, { "@type": "Service", name: "Cloud Migration to AWS" },], }), }} />
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -41,3 +74,4 @@ export default function RootLayout({
     </html>
   );
 }
+
