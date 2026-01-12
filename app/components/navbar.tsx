@@ -7,7 +7,11 @@ export default function Navbar() {
 
         {/* Brand */}
         <Link href="/" className="text-xl font-bold">
-          JGC Solutions
+          <img 
+          src="/images/logo.png" 
+          alt="logo" 
+          className="h-10 w-auto mr-3"
+          />
         </Link>
 
         {/* Navigation */}
