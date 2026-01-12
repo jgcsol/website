@@ -2,9 +2,23 @@
 :root{--bg:#ffffff;--text:#111827;--accent:#2563eb;--border:#e5e7eb}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.5rem;border-bottom:1px solid var(--border);background:var(--bg)}
 .nav__brand{font-weight:700;color:var(--text)}
+.nav__inner{display:flex;align-items:center;justify-content:space-between;width:100%;gap:1rem}
+.nav__logo{height:40px}
 .nav__links{display:flex;gap:.75rem;align-items:center}
 .nav__link{color:var(--text);padding:.5rem .75rem;border-radius:.5rem;text-decoration:none}
 .nav__link:hover{background:#f3f4f6}
 .nav__cta{padding:.4rem .85rem;border-radius:.5rem;background:var(--accent);color:#fff;font-weight:600}
 
-@media(max-width:768px){.nav__links{display:none}}
+/* Toggle (hidden on desktop) */
+.nav__toggle{display:none;background:transparent;border:0;padding:0;cursor:pointer}
+.nav__toggle-box{display:inline-flex;flex-direction:column;gap:4px}
+.nav__toggle-bar{display:block;width:22px;height:2px;background:var(--text);border-radius:2px}
+
+@media(max-width:768px){
+	.nav{padding:.5rem 1rem}
+	.nav__toggle{display:block}
+	.nav__links{display:none;position:absolute;right:1rem;top:64px;background:var(--bg);padding:0.75rem;border:1px solid var(--border);border-radius:8px;box-shadow:0 6px 18px rgba(2,6,23,0.08);flex-direction:column;min-width:160px;z-index:50}
+	.nav__links.nav__links--open{display:flex}
+	.nav__link{padding:.5rem .75rem}
+	.nav__cta{padding:.5rem .75rem}
+}
