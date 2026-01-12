@@ -43,7 +43,7 @@ const caseStudies: CaseStudy[] = [
     stack: ["AWS Textract", "AWS Comprehend", "Lambda", "S3"],
     outcome:
       "Converted unstructured documents into searchable, structured data.",
-      diagram: "/images/documentProcessor2.png"
+      diagram: "/images/documentProcessor.png"
   },
 ];
 
