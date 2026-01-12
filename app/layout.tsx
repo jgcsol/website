@@ -9,11 +9,15 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 export const metadata: Metadata = {
   title: "JGC Solutions",
   description: "AWS-powered software development, automation, and serverless architecture for small and mid-sized businesses.",
-  icons: { icon: "/favicon.ico" }, // Handles favicon automatically
+  icons: { icon: "/favicon.ico" },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const jsonLd = {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+ const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     /* =========================
@@ -184,15 +188,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   ]
 };
 
+
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="en">
       <head>
+        <link rel="icon" href="/favicon.ico" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         <Navbar />
         {children}
       </body>
