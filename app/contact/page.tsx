@@ -70,67 +70,40 @@ export default function ContactForm() {
 
 
   return (
-    <section className="max-w-2xl mx-auto px-6 py-20">
-      <h1 className="text-3xl md:text-4xl font-bold text-center mb-6">
-        Contact JGC Solutions
-      </h1>
+    <section className="contact container">
+      <h1 className="contact__title">Contact JGC Solutions</h1>
 
-      <p className="text-center text-gray-600 mb-12">
-        Tell us about your project and we’ll respond within 1 business day.
-      </p>
+      <p className="contact__lead">Tell us about your project and we’ll respond within 1 business day.</p>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label className="block font-medium mb-1">Name *</label>
-          <input
-            name="name"
-            required
-            className="w-full border rounded-lg px-4 py-3"
-          />
+      <form onSubmit={handleSubmit} className="form">
+        <div className="field">
+          <label>Name *</label>
+          <input name="name" required />
         </div>
 
-        <div>
-          <label className="block font-medium mb-1">Email *</label>
-          <input
-            type="email"
-            name="email"
-            required
-            className="w-full border rounded-lg px-4 py-3"
-          />
+        <div className="field">
+          <label>Email *</label>
+          <input type="email" name="email" required />
         </div>
 
-        <div>
-          <label className="block font-medium mb-1">Company</label>
-          <input
-            name="company"
-            className="w-full border rounded-lg px-4 py-3"
-          />
+        <div className="field">
+          <label>Company</label>
+          <input name="company" />
         </div>
 
-        <div>
-          <label className="block font-medium mb-1">Message *</label>
-          <textarea
-            name="message"
-            rows={5}
-            required
-            className="w-full border rounded-lg px-4 py-3"
-          />
+        <div className="field field--full">
+          <label>Message *</label>
+          <textarea name="message" rows={5} required />
         </div>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold"
-        >
-          {loading ? "Sending..." : "Send Message"}
-        </button>
+        <div className="form__actions">
+          <button type="submit" disabled={loading} className="btn btn--primary">
+            {loading ? "Sending..." : "Send Message"}
+          </button>
+        </div>
 
         {feedback && (
-          <p
-            className={`text-center font-medium ${
-              isError ? "text-red-600" : "text-green-600"
-            }`}
-          >
+          <p className={`feedback ${isError ? "feedback--error" : "feedback--success"}`}>
             {feedback}
           </p>
         )}

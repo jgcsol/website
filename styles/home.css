@@ -1,0 +1,63 @@
+:root{
+  --bg:#ffffff;
+  --text:#111827;
+  --muted:#6b7280;
+  --blue:#2563eb;
+  --blue-dark:#1e40af;
+  --surface:#f9fafb;
+  --border:#e5e7eb;
+}
+
+/* Layout utilities */
+.container{max-width:1120px;margin:0 auto;padding:0 1.5rem}
+.section{padding:4rem 0}
+
+/* HERO */
+.hero{background:var(--bg);color:var(--text);text-align:center;padding:6rem 0}
+.hero__title{font-weight:700;line-height:1.05;font-size:2.25rem}
+@media(min-width:768px){.hero__title{font-size:3.75rem}}
+.hero__highlight{color:var(--blue)}
+.hero__lead{margin-top:1.5rem;color:var(--muted);max-width:48rem;margin-left:auto;margin-right:auto}
+.hero__actions{margin-top:2.5rem;display:flex;justify-content:center;gap:1rem}
+
+/* Buttons */
+.btn{padding:0.6rem 1.5rem;border-radius:0.75rem;font-weight:600;transition:background-color .15s, color .15s}
+.btn--primary{background:var(--blue);color:#fff;border:1px solid transparent}
+.btn--primary:hover{background:var(--blue-dark)}
+.btn--ghost{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn--ghost:hover{background:#f3f4f6}
+
+/* White variant used for CTAs on colored sections */
+.btn--white{background:#ffffff;color:var(--blue);border:1px solid transparent}
+.btn--white:hover{background:#f3f4f6}
+
+/* SERVICES */
+.services{background:var(--surface);padding:3rem 0}
+.services{ text-align:center }
+.services__grid{display:grid;gap:2rem;grid-template-columns:1fr}
+@media(min-width:768px){.services__grid{grid-template-columns:repeat(3,1fr)}}
+.service-card{background:#fff;border-radius:0.75rem;padding:1.25rem;border:1px solid var(--border);box-shadow:0 1px 4px rgba(2,6,23,0.04)}
+.service-card__title{font-weight:600}
+.service-card__text{margin-top:.75rem;color:var(--muted)}
+/* keep card content left-aligned for readability */
+.service-card{ text-align:left }
+
+/* WHY + RESULTS */
+.why{padding:3rem 0}
+.why__grid{display:grid;gap:2.5rem}
+@media(min-width:768px){.why__grid{grid-template-columns:1fr 1fr}}
+.why__list{color:var(--text);line-height:1.6}
+.results-card{background:#eff6ff;border-radius:0.75rem;padding:1.5rem}
+.results-card__title{color:#1e3a8a;font-weight:700}
+
+/* CTA */
+.cta{background:var(--blue);color:#fff;padding:3.5rem 0;text-align:center}
+.cta__title{font-weight:700;font-size:1.75rem}
+.cta__lead{margin-top:0.5rem}
+.cta__actions{margin-top:1.5rem}
+.cta .btn{border-radius:0.5rem}
+
+/* small helpers */
+.muted{color:var(--muted)}
+.mt-4{margin-top:1rem}
+.mt-6{margin-top:1.5rem}

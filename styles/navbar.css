@@ -1,0 +1,10 @@
+/* Navbar styles */
+:root{--bg:#ffffff;--text:#111827;--accent:#2563eb;--border:#e5e7eb}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.5rem;border-bottom:1px solid var(--border);background:var(--bg)}
+.nav__brand{font-weight:700;color:var(--text)}
+.nav__links{display:flex;gap:.75rem;align-items:center}
+.nav__link{color:var(--text);padding:.5rem .75rem;border-radius:.5rem;text-decoration:none}
+.nav__link:hover{background:#f3f4f6}
+.nav__cta{padding:.4rem .85rem;border-radius:.5rem;background:var(--accent);color:#fff;font-weight:600}
+
+@media(max-width:768px){.nav__links{display:none}}
