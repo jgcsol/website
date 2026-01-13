@@ -2,9 +2,20 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from 'next/navigation';
+import clsx from 'clsx';
+
+const links = [
+  {
+    name: 'Pricing', href: '/pricing',
+  },
+  { name: 'Portfolio', href: '/portfolio' },
+  { name: 'Contact', href: '/contact' },
+];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <nav className="nav">
@@ -27,9 +38,27 @@ export default function Navbar() {
         </button>
 
         <div className={`nav__links ${open ? 'nav__links--open' : ''}`}>
-          <Link href="/pricing" className="nav__link" onClick={() => setOpen(false)}>Pricing</Link>
-          <Link href="/portfolio" className="nav__link" onClick={() => setOpen(false)}>Portfolio</Link>
-          <Link href="/contact" className="nav__cta" onClick={() => setOpen(false)}>Contact</Link>
+          <>
+            {links.map((link) => {
+              const isActive =
+                pathname === link.href ||
+                (link.href !== '/' && pathname?.startsWith(link.href));
+
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  aria-current={isActive ? 'page' : undefined}
+                  className={clsx(
+                    link.name !== 'Contact' ? 'nav__link' : 'nav__cta',
+                    { 'nav__link--active': isActive }
+                  )}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
+          </>
         </div>
       </div>
     </nav>
