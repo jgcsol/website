@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 type CaseStudy = {
   title: string;
@@ -81,7 +82,7 @@ export default function PortfolioPage() {
             </p>
 
             {project.diagram && (
-              <img src={project.diagram} alt={`${project.title} architecture diagram`} className="mt-6 rounded-lg border" />
+              <Image src={project.diagram} alt={`${project.title} architecture diagram`} className="mt-6 rounded-lg border" width={600} height={400} />
             )}
           </div>
         ))}
