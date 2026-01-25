@@ -7,6 +7,7 @@ import "../styles/portfolio.css";
 import "../styles/pricing.css";
 import "../styles/navbar.css";
 import Navbar from "./components/navbar";
+import BreadcrumbSchema from "./components/breadcrumbSchema";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -133,28 +134,6 @@ export default function RootLayout({
     },
 
     /* =========================
-       BREADCRUMBS
-    ========================== */
-    {
-      "@type": "BreadcrumbList",
-      "@id": "https://jgcsol.com/#breadcrumbs",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: "https://jgcsol.com"
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Services",
-          item: "https://jgcsol.com/services"
-        }
-      ]
-    },
-
-    /* =========================
        FAQ (HIGH SEO VALUE)
     ========================== */
     {
@@ -202,6 +181,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <BreadcrumbSchema />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
