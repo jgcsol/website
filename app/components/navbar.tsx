@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
+import Image from "next/image";
 
 const links = [
   {
@@ -21,7 +22,7 @@ export default function Navbar() {
     <nav className="nav">
       <div className="container nav__inner">
         <Link href="/" className="nav__brand">
-          <img src="/images/logo.png" alt="logo" className="nav__logo" />
+          <Image src="/images/logo.png" alt="logo" className="nav__logo" width='200' height="100" />
         </Link>
 
         <button
