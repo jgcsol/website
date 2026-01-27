@@ -22,7 +22,7 @@ export default function Navbar() {
     <nav className="nav">
       <div className="container nav__inner">
         <Link href="/" className="nav__brand">
-          <Image src="/images/logo.png" alt="logo" className="nav__logo" width='200' height="100" />
+          <Image src="/images/logo.png" alt="logo" className="nav__logo" width='150' height="100" />
         </Link>
 
         <button
