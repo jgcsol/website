@@ -20,16 +20,18 @@
     color: var(--text)
 }
 
+.nav__brand img {
+    display: block;
+    width: 'auto';
+    height: 'auto'
+}
+
 .nav__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     gap: 1rem
-}
-
-.nav__logo {
-    height: 40px
 }
 
 .nav__links {
@@ -105,6 +107,11 @@
 @media(max-width:768px) {
     .nav {
         padding: .5rem 1rem
+    }
+
+    .nav__brand img {
+        width: 120px;
+        height: auto;
     }
 
     .nav__toggle {
