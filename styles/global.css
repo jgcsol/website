@@ -1,3 +1,177 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* ========================
+   CSS VARIABLES
+   ======================== */
+:root {
+  --bg: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --blue: #2563eb;
+  --blue-dark: #1e40af;
+  --surface: #f9fafb;
+  --border: #e5e7eb;
+  --accent: #2563eb;
+  --card: #fff;
+  --card-bg: #fff;
+}
+
+/* ========================
+   LAYOUT UTILITIES
+   ======================== */
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+/* Page sections with centered content */
+.page-section {
+  padding: 3rem 0;
+  text-align: center;
+}
+
+/* ========================
+   BUTTONS
+   ======================== */
+.btn {
+  padding: 0.6rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition: background-color 0.15s, color 0.15s;
+  cursor: pointer;
+  border: 1px solid transparent;
+  display: inline-block;
+}
+
+.btn--primary {
+  background: var(--blue);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: var(--blue-dark);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn--ghost:hover {
+  background: #f3f4f6;
+}
+
+.btn--white {
+  background: #ffffff;
+  color: var(--blue);
+}
+
+.btn--white:hover {
+  background: #f3f4f6;
+}
+
+/* ========================
+   FORM STYLES
+   ======================== */
+.form {
+  max-width: 720px;
+  margin: 1.25rem auto 0;
+  display: grid;
+  gap: 1rem;
+  text-align: left;
+  width: 100%;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field label {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.field input,
+.field textarea {
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  width: 100%;
+  background: #fff;
+  font-family: inherit;
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+  border-color: var(--accent);
+}
+
+.field textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+
+.form__actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  grid-column: 1 / -1;
+}
+
+.form .btn {
+  min-width: 14rem;
+}
+
+.feedback {
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.feedback--error {
+  color: #dc2626;
+}
+
+/* ========================
+   CARD/GRID PATTERNS
+   ======================== */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.grid-responsive {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .grid-responsive {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .grid-responsive {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
