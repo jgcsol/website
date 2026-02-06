@@ -1,5 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Portfolio & Case Studies | JGC Solutions",
+  description: "Real-world examples of cloud solutions built with AWS to improve performance, scalability, and operational efficiency.",
+};
 
 type CaseStudy = {
   title: string;
