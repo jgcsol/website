@@ -17,12 +17,18 @@ const links = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-
+  const logoWidth = 150;
+  const logoHeight = 100;
   return (
     <nav className="nav">
       <div className="container nav__inner">
         <Link href="/" className="nav__brand">
-          <Image src="/images/logo.png" alt="logo" className="nav__logo" width='150' height="100" />
+          <Image
+            src="/images/logo.png"
+            alt="logo"
+            width={logoWidth}
+            height={logoHeight}
+          />
         </Link>
 
         <button
