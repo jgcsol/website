@@ -1,5 +1,5 @@
 import Link from "next/link";
-import CredlyBadge from "./components/technicalAccreditedBadge";
+import Badges from "./components/badges";
 
 export default function Home() {
   const services = [
@@ -56,11 +56,14 @@ export default function Home() {
       </section>
 
       {/* CREDENTIALS SECTION */}
-        <section className="badges__container">
-          <h2 className="text-3xl font-bold text-center">AWS Certified & Accredited</h2>
-          <p className="credentials__subtitle">Verified expertise in cloud architecture and AWS solutions</p>
-          <CredlyBadge />
-        </section>
+      <section className="badges__container">
+        <h2 className="text-3xl font-bold text-center">AWS Certified & Accredited</h2>
+        <p className="credentials__subtitle">Verified expertise in cloud architecture and AWS solutions</p>
+        <Badges badges={[
+          { id: 'a644b510-8cde-4636-8bf7-3ae93491d531' },
+          { id: '87a97b88-fd09-465e-bdbf-9c7fa1abf81c' },
+        ]} />
+      </section>
 
       {/* SERVICES SECTION */}
       <section className="services">
