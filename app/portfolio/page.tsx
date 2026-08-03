@@ -13,9 +13,20 @@ type CaseStudy = {
   stack: string[];
   outcome: string;
   diagram?: string;
+  link?: string
 };
 
 const caseStudies: CaseStudy[] = [
+  {
+    title: "AI-Powered Job Matching Platform",
+    description:
+      "Built PathFinder, a full-stack career intelligence platform where candidates upload resumes for AI-driven parsing and get matched to O*NET job titles, while employers browse a ranked, skill-scored candidate pool.",
+    stack: ["Spring Boot", "Next.js", "PostgreSQL", "Claude API", "AWS EC2", "Docker"],
+    outcome:
+      "Deployed a production system with full JWT auth, CI/CD via GitHub Actions, and AI resume parsing scored against O*NET occupations (skills 40%, experience 40%, education 20%).",
+    diagram: "/images/pathfinderDiagram.png",
+    link: "https://pathfinder.jgcsol.com",
+  },
   {
     title: "Static Marketing Website with Global CDN",
     description:
@@ -24,6 +35,7 @@ const caseStudies: CaseStudy[] = [
     outcome:
       "Achieved sub-100ms global load times with zero server maintenance and minimal hosting costs.",
     diagram: "/images/staticWebsiteDiagram.png",
+    link: "https://jgcsol.com",
   },
   {
     title: "Serverless Backend for Web Application",
@@ -41,7 +53,7 @@ const caseStudies: CaseStudy[] = [
     stack: ["AWS Lambda", "EventBridge", "SES", "S3"],
     outcome:
       "Reduced manual effort by 70% and improved reporting reliability.",
-      diagram: "/images/automatedWorkflow.png"
+    diagram: "/images/automatedWorkflow.png"
   },
   {
     title: "AI-Powered Document Processing",
@@ -50,7 +62,7 @@ const caseStudies: CaseStudy[] = [
     stack: ["AWS Textract", "AWS Comprehend", "Lambda", "S3"],
     outcome:
       "Converted unstructured documents into searchable, structured data.",
-      diagram: "/images/documentProcessor.png"
+    diagram: "/images/documentProcessor.png"
   },
 ];
 
@@ -74,9 +86,9 @@ export default function PortfolioPage() {
 
             <div className="mt-4">
               <p className="font-medium">Technology Stack</p>
-              <ul className="mt-2" style={{display: 'flex', flexWrap: 'wrap', gap: '0.5rem'}}>
+              <ul className="mt-2" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
                 {project.stack.map((tech) => (
-                  <li key={tech} className="text-sm" style={{background:'#f3f4f6',padding:'0.25rem 0.6rem',borderRadius:999}}>
+                  <li key={tech} className="text-sm" style={{ background: '#f3f4f6', padding: '0.25rem 0.6rem', borderRadius: 999 }}>
                     {tech}
                   </li>
                 ))}
@@ -86,6 +98,17 @@ export default function PortfolioPage() {
             <p className="mt-4">
               <span className="font-medium">Outcome:</span> {project.outcome}
             </p>
+
+            {project.link && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-block text-blue-600 hover:underline"
+              >
+              {"View Project"}
+            </a>
+            )}
 
             {project.diagram && (
               <Image src={project.diagram} alt={`${project.title} architecture diagram`} className="mt-6 rounded-lg border" width={600} height={400} />
