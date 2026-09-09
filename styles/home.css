@@ -10,6 +10,22 @@
   padding: 4rem 0;
 }
 
+.hero__inner {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-direction: column;
+}
+
+.hero__media { margin-bottom: 1rem; }
+
+.profile-image {
+  border-radius: 0.75rem;
+  object-fit: cover;
+  box-shadow: 0 8px 30px rgba(2,6,23,0.08);
+  border: 1px solid var(--border);
+}
+
 .hero__title {
   font-weight: 700;
   line-height: 1.05;
@@ -20,6 +36,13 @@
   .hero__title {
     font-size: 3.75rem;
   }
+  .hero__inner {
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .hero__media { flex: 0 0 260px; }
+  .hero__content { flex: 1; }
 }
 
 .hero__highlight {
@@ -32,6 +55,24 @@
   max-width: 48rem;
   margin-left: auto;
   margin-right: auto;
+}
+
+.skills__list {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: .75rem;
+}
+
+.skill-badge {
+  background: #f3f4f6;
+  color: var(--text);
+  padding: .45rem .7rem;
+  border-radius: .5rem;
+  font-weight: 600;
+  font-size: .95rem;
+  border: 1px solid var(--border);
 }
 
 .hero__actions {
@@ -47,6 +88,39 @@
   padding: 3rem 0;
   text-align: center;
 }
+
+/* Projects */
+.projects__grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .projects__grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.project-card {
+  background: linear-gradient(180deg, #fff 0%, #fbfdff 100%);
+  border: 1px solid var(--border);
+  padding: 1.25rem;
+  border-radius: .75rem;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.04);
+}
+
+.project-card__title { font-weight: 700; }
+.project-card__desc { margin-top: .5rem; }
+
+/* Experience */
+.experience__list { display: grid; gap: 1rem; max-width: 720px; margin: 0 auto; }
+.experience__item { padding: .75rem 1rem; border-radius: .5rem; border: 1px solid var(--border); background: #fff; }
+.experience__role { margin: 0; font-weight: 700; }
+
+/* CTA tweaks */
+.hero__actions .btn { margin-right: .5rem; }
+
+.mt-6 { margin-top: 1.5rem; }
+.mt-8 { margin-top: 2rem; }
 
 .services__grid {
   display: grid;
@@ -176,3 +250,16 @@
   margin-top: 0.75rem;
   text-align: center;
 }
+
+.manual-badges { display: flex; justify-content: center; }
+.manual-badge {
+  background: #fff;
+  border: 1px solid var(--border);
+  padding: 1rem 1.25rem;
+  border-radius: .6rem;
+  max-width: 520px;
+  text-align: left;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.04);
+}
+.manual-badge__title { font-weight: 700; font-size: 1rem; }
+.manual-badge__meta { font-size: .95rem; }

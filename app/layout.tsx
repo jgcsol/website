@@ -6,8 +6,10 @@ import "../styles/contact.css";
 import "../styles/portfolio.css";
 import "../styles/pricing.css";
 import "../styles/navbar.css";
+import "../styles/footer.css";
 import Navbar from "./components/navbar";
 import BreadcrumbSchema from "./components/breadcrumbSchema";
+import Footer from "./components/footer";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -182,6 +184,7 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

@@ -146,3 +146,40 @@
         
     }
 }
+
+/* Social link styles */
+.nav__socials {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+}
+
+.nav__social {
+    display: inline-flex;
+    gap: .5rem;
+    align-items: center;
+    padding: .35rem .6rem;
+    border-radius: .5rem;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.nav__social:hover {
+    background: #f3f4f6;
+}
+
+.nav__social svg {
+    display: block;
+    width: 18px;
+    height: 18px;
+}
+
+.nav__social-label {
+    display: inline-block;
+    margin-left: .4rem;
+    font-size: 0.95rem;
+}
+
+@media(max-width:768px) {
+    .nav__social-label { display: none; }
+}
