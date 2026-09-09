@@ -1,122 +1,68 @@
 import Link from "next/link";
+import Image from "next/image";
 import Badges from "./components/badges";
 
 export default function Home() {
-  const services = [
-    {
-      title: "Cloud Application Development",
-      text: "Custom web applications, APIs, and dashboards built using serverless AWS services for performance and scalability.",
-    },
-    {
-      title: "Business Process Automation",
-      text: "Eliminate repetitive tasks with AWS-powered automation, scheduled jobs, notifications, and reporting.",
-    },
-    {
-      title: "Cloud Migration & Modernization",
-      text: "Move legacy systems to AWS to reduce infrastructure cost, improve reliability, and enable growth.",
-    },
-    {
-      title: "AI Document & Resume Processing",
-      text: "Extract and analyze documents using AWS Textract and Comprehend to unlock searchable business data.",
-    },
-    {
-      title: "Startup MVP Backends",
-      text: "Launch faster with secure, scalable backend infrastructure without hiring a full engineering team.",
-    },
-    {
-      title: "Ongoing Support & Optimization",
-      text: "Monitoring, enhancements, and cost optimization through predictable monthly support plans.",
-    },
-  ];
-
   return (
     <main>
-      {/* HERO SECTION */}
+      {/* HERO SECTION (Profile) */}
       <section className="hero container">
-        <h1 className="hero__title">
-          Cloud-Powered Software Solutions<br />
-          <span className="hero__highlight">Built on AWS</span>
-        </h1>
+        <div className="hero__inner">
+          <div className="hero__media">
+            <Image src="/images/profile.png" alt="Jesus Cabrero" width={260} height={260} className="profile-image" />
+          </div>
 
-        <p className="hero__lead">
-          JGC Solutions helps businesses automate workflows, modernize legacy systems,
-          and launch scalable cloud applications using AWS — without the cost of
-          maintaining servers or full-time engineering teams.
-        </p>
+          <div className="hero__content">
+            <p>
+              <strong>Hi, I'm Jesus.</strong>
+              <br /><br />
 
-        <div className="hero__actions">
-          <Link href="/contact" className="btn btn--primary">
-            Get a Free Consultation
-          </Link>
+              I'm a software engineer, problem solver, husband, and father of three who
+              enjoys building technology that makes complicated things simpler.
+              <br /><br />
 
-          <Link href="/portfolio" className="btn btn--ghost">
-            View Portfolio
-          </Link>
+              I have 5+ years of professional experience developing full-stack and
+              cloud-based applications, with a strong focus on{" "}
+              <strong>Java, Spring Boot, React, SQL, and AWS</strong>. I've worked across
+              software development, cloud infrastructure, APIs, data systems, automation,
+              and AI integration, giving me an appreciation for the entire journey from
+              an idea to a production application.
+              <br /><br />
+
+              I'm especially interested in <strong>AI engineering and practical AI
+                solutions</strong>. I enjoy finding ways to take emerging technology and
+              turn it into something useful for a business or its customers. I've
+              integrated LLMs into applications, built AI-powered document processing and
+              matching solutions, and worked with cloud-native architectures designed to
+              scale.
+              <br /><br />
+
+              Outside of technology, I'm a family man first. I'm a husband and father of
+              three, and when I'm not behind a computer, you'll probably find me{" "}
+              <strong>bowling, playing sports, watching sports, or spending time with my
+                family</strong>.
+              <br /><br />
+
+              I believe good software engineering isn't just about writing code. It's
+              about understanding the problem, finding the right solution, and building
+              something that people can actually use.
+              <br /><br />
+
+              <strong>I build. I solve problems. I keep learning. And I'm always looking
+                for the next challenge.</strong>
+            </p>
+          </div>
         </div>
       </section>
 
       {/* CREDENTIALS SECTION */}
-      <section className="badges__container">
+      <section className="badges__container mt-6">
         <h2 className="text-3xl font-bold text-center">AWS Certified & Accredited</h2>
         <p className="credentials__subtitle">Verified expertise in cloud architecture and AWS solutions</p>
         <Badges badges={[
           { id: 'a644b510-8cde-4636-8bf7-3ae93491d531' },
           { id: '87a97b88-fd09-465e-bdbf-9c7fa1abf81c' },
         ]} />
-      </section>
-
-      {/* SERVICES SECTION */}
-      <section className="services">
-        <div className="container">
-          <h2 className="text-3xl font-bold text-center">Services</h2>
-
-          <div className="services__grid mt-12">
-            {services.map((service) => (
-              <div key={service.title} className="service-card">
-                <h3 className="service-card__title">{service.title}</h3>
-                <p className="service-card__text">{service.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* WHY JGC SOLUTIONS */}
-      <section className="why">
-        <div className="container">
-          <h2 className="text-3xl font-bold text-center">Why JGC Solutions</h2>
-
-          <div className="why__grid mt-12">
-            <ul className="why__list">
-              <li>✔ AWS-first, serverless architecture</li>
-              <li>✔ Lower operational cost than traditional hosting</li>
-              <li>✔ Fast delivery with modern tooling</li>
-              <li>✔ Java & cloud engineering expertise</li>
-              <li>✔ Transparent pricing and support options</li>
-            </ul>
-
-            <div className="results-card">
-              <p className="results-card__title">Typical Results</p>
-              <p className="mt-4">
-                Clients reduce infrastructure costs, eliminate manual processes,
-                and gain systems that scale automatically as their business grows —
-                all while avoiding long-term vendor lock-in.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA SECTION */}
-      <section className="cta">
-        <h2 className="cta__title">Ready to modernize your software?</h2>
-        <p className="cta__lead">Let’s talk about how AWS can simplify your operations and reduce cost.</p>
-
-        <div className="cta__actions">
-          <Link href="/contact" className="btn btn--white">
-            Schedule a Consultation
-          </Link>
-        </div>
       </section>
     </main>
   );
