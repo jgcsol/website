@@ -29,7 +29,7 @@ export default function Badges({ badges }: BadgesProps) {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div className="badges__grid grid grid-cols-1 lg:grid-cols-2 gap-8">
       {badges.map((badge) => (
         <div
           key={badge.id}

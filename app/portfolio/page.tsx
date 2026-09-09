@@ -116,15 +116,6 @@ export default function PortfolioPage() {
           </div>
         ))}
       </section>
-
-      {/* CTA */}
-      <section className="bg-gray-50 py-20 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold">Want similar results for your business?</h2>
-        <p className="mt-4">Let’s discuss your goals and design a solution that fits your needs.</p>
-
-        <Link href="/contact" className="mt-8 inline-block px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition">Schedule a Consultation</Link>
-      </section>
-
     </main>
   );
 }
