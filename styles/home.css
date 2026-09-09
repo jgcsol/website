@@ -237,6 +237,25 @@
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
 }
 
+.badges__grid {
+  width: 100%;
+  max-width: 1000px;
+  min-width: 0;
+}
+
+.badges__grid > div {
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+  width: 100%;
+}
+
+.badges__grid iframe {
+  display: block;
+  max-width: 100%;
+  width: 100% !important;
+}
+
 /* CREDENTIALS */
 .credentials {
   background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
